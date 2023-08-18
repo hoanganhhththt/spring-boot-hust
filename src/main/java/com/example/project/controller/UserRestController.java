@@ -1,41 +1,35 @@
 package com.example.project.controller;
 
-import com.example.project.entity.User;
 import com.example.project.request.AddUserReq;
 import com.example.project.request.DetailReq;
 import com.example.project.request.ListUserReq;
 import com.example.project.request.UpdateUserReq;
 import com.example.project.response.ApiResponse;
 import com.example.project.response.DetailUser;
-import com.example.project.response.ListUserRes;
 import com.example.project.service.TransactionService;
-import com.example.project.service.UserSerive;
-import com.example.project.service.UserTransactionService;
-import jakarta.validation.Valid;
+import com.example.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
 
-    private UserSerive userSerive;
+    private UserService userSerive;
 
     private TransactionService transactionService;
 
-    private UserTransactionService userTransactionService;
 
     @Autowired
-    public UserRestController(UserSerive theUserService, TransactionService theTransactionService, UserTransactionService theUserTransacionService) {
+    public UserRestController(UserService theUserService, TransactionService theTransactionService) {
         userSerive = theUserService;
         transactionService = theTransactionService;
-        userTransactionService = theUserTransacionService;
     }
 
     @PostMapping("/add")

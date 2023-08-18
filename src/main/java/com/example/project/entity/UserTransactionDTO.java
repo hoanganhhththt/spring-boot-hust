@@ -1,10 +1,10 @@
 package com.example.project.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user_transaction")
-public class UserTransaction {
+public class UserTransactionDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -13,19 +13,19 @@ public class UserTransaction {
     // @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserDTO userDTO;
 
     // @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     @ManyToOne
     @JoinColumn(name = "transaction_id")
-    private Transaction transaction;
+    private TransactionDTO transactionDTO;
 
-    public UserTransaction() {
+    public UserTransactionDTO() {
     }
 
-    public UserTransaction(User user, Transaction transaction) {
-        this.user = user;
-        this.transaction = transaction;
+    public UserTransactionDTO(UserDTO userDTO, TransactionDTO transactionDTO) {
+        this.userDTO = userDTO;
+        this.transactionDTO = transactionDTO;
     }
 
     public int getId() {
@@ -36,20 +36,20 @@ public class UserTransaction {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserDTO getUser() {
+        return userDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
+    public TransactionDTO getTransaction() {
+        return transactionDTO;
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    public void setTransaction(TransactionDTO transactionDTO) {
+        this.transactionDTO = transactionDTO;
     }
 
 
@@ -57,8 +57,8 @@ public class UserTransaction {
     public String toString() {
         return "UserTransaction{" +
                 "id=" + id +
-                ", user=" + user +
-                ", transaction=" + transaction +
+                ", user=" + userDTO +
+                ", transaction=" + transactionDTO +
                 '}';
     }
 }

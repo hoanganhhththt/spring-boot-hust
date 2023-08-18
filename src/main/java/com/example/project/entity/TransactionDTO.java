@@ -1,18 +1,15 @@
 package com.example.project.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.persistence.*;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "transaction")
-public class Transaction {
+public class TransactionDTO {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -45,12 +42,12 @@ public class Transaction {
     @JoinTable(name = "user_transaction",
             joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private List<UserDTO> userDTOS;
 
-    public Transaction() {
+    public TransactionDTO() {
     }
 
-    public Transaction(String title, Timestamp dateTime, BigDecimal averageAmount, BigDecimal feeAmount,Integer userBuy, String note) {
+    public TransactionDTO(String title, Timestamp dateTime, BigDecimal averageAmount, BigDecimal feeAmount, Integer userBuy, String note) {
         this.title = title;
         this.dateTime = dateTime;
         this.averageAmount = averageAmount;
@@ -107,12 +104,12 @@ public class Transaction {
         this.note = note;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserDTO> getUsers() {
+        return userDTOS;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<UserDTO> userDTOS) {
+        this.userDTOS = userDTOS;
     }
 
     public List<Integer> getLstUser() {
@@ -132,11 +129,11 @@ public class Transaction {
         this.userBuy = userBuy;
     }
 
-    public void addUser(User theUser) {
-        if(users == null) {
-            users = new ArrayList<>();
+    public void addUser(UserDTO theUserDTO) {
+        if(userDTOS == null) {
+            userDTOS = new ArrayList<>();
         }
-        users.add(theUser);
+        userDTOS.add(theUserDTO);
     }
 
     @Override
@@ -150,7 +147,7 @@ public class Transaction {
                 ", note='" + note + '\'' +
                 ", lstUser=" + lstUser +
                 ", userBuy=" + userBuy +
-                ", users=" + users +
+                ", users=" + userDTOS +
                 '}';
     }
 }

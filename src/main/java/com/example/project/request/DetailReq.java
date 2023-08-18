@@ -1,6 +1,7 @@
 package com.example.project.request;
 
-import jakarta.validation.constraints.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 public class DetailReq {
     @NotNull(message = "Id không được bỏ trống")

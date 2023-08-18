@@ -1,7 +1,5 @@
 package com.example.project.response;
 
-import com.example.project.entity.User;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;

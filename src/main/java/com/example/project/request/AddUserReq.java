@@ -1,10 +1,17 @@
 package com.example.project.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 public class AddUserReq {
+
+    @NotNull(message = "Vui lòng nhập Tên đăng nhập")
+    private String userName;
     @NotNull(message = "Vui lòng nhập Họ và tên")
     private String fullName;
     @NotNull(message = "Vui lòng nhập Email")
@@ -19,13 +26,17 @@ public class AddUserReq {
     private String accountNumber;
     @NotNull(message = "Vui lòng nhập Ngân hàng")
     private String bankName;
+
+    @NotNull(message = "Vui lòng chọn Nhóm quyền")
+    private List<Integer> roles;
     private int isAdmin;
     private int status;
 
     public AddUserReq() {
     }
 
-    public AddUserReq(String fullName, String email, String phoneNumber, String password, String accountNumber, String bankName, int isAdmin, int status) {
+    public AddUserReq(String userName,String fullName, String email, String phoneNumber, String password, String accountNumber, String bankName, int isAdmin, int status) {
+        this.userName = userName;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -34,6 +45,14 @@ public class AddUserReq {
         this.bankName = bankName;
         this.isAdmin = isAdmin;
         this.status = status;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFullName() {
@@ -98,5 +117,13 @@ public class AddUserReq {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<Integer> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Integer> roles) {
+        this.roles = roles;
     }
 }

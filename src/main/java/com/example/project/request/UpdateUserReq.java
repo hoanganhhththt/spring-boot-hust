@@ -1,8 +1,11 @@
 package com.example.project.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 public class UpdateUserReq {
     @NotNull(message = "Lỗi hệ thống")
@@ -19,6 +22,9 @@ public class UpdateUserReq {
     private String accountNumber;
     @NotNull(message = "Vui lòng nhập Ngân hàng")
     private String bankName;
+
+    @NotNull(message = "Vui lòng chọn Nhóm quyền")
+    private List<Integer> roles;
 
     public UpdateUserReq() {
     }
@@ -79,5 +85,13 @@ public class UpdateUserReq {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
+    }
+
+    public List<Integer> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Integer> roles) {
+        this.roles = roles;
     }
 }

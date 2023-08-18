@@ -1,13 +1,13 @@
 package com.example.project.entity;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "fee")
-public class Fee {
+public class FeeDTO {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class Fee {
     @Column(name="date_time")
     private LocalDateTime dateTime;
 
-    public Fee() {
+    public FeeDTO() {
     }
 
-    public Fee(BigDecimal feeAmount, LocalDateTime dateTime) {
+    public FeeDTO(BigDecimal feeAmount, LocalDateTime dateTime) {
         this.feeAmount = feeAmount;
         this.dateTime = dateTime;
     }

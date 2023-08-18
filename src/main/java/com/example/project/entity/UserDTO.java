@@ -1,18 +1,23 @@
 package com.example.project.entity;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserDTO {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
+
+    @Column(name = "user_name")
+    private String username;
 
     @Column(name = "full_name")
     private String fullName;
@@ -40,16 +45,23 @@ public class User {
 
 
     // @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "user_transaction",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-    private List<Transaction> transactions;
+    private List<TransactionDTO> transactionDTOS;
 
-    public User() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<RoleDTO> roleDTOS;
+
+    public UserDTO() {
     }
 
-    public User(String fullName, String email, String phoneNumber, String password, String accountNumber, String bankName, Integer isAdmin, Integer status) {
+    public UserDTO(String username, String fullName, String email, String phoneNumber, String password, String accountNumber, String bankName, Integer isAdmin, Integer status) {
+        this.username = username;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -117,12 +129,12 @@ public class User {
         this.bankName = bankName;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<TransactionDTO> getTransactions() {
+        return transactionDTOS;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setTransactions(List<TransactionDTO> transactionDTOS) {
+        this.transactionDTOS = transactionDTOS;
     }
 
     public Integer getIsAdmin() {
@@ -141,17 +153,41 @@ public class User {
         this.status = status;
     }
 
-    public void addTransaction(Transaction theTransaction) {
-        if(transactions == null) {
-            transactions = new ArrayList<>();
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
+
+    public List<RoleDTO> getRoles() {
+        return roleDTOS;
+    }
+
+    public void setRoles(List<RoleDTO> roleDTOS) {
+        this.roleDTOS = roleDTOS;
+    }
+
+    public void addTransaction(TransactionDTO theTransactionDTO) {
+        if(transactionDTOS == null) {
+            transactionDTOS = new ArrayList<>();
         }
-        transactions.add(theTransaction);
+        transactionDTOS.add(theTransactionDTO);
+    }
+
+    public void addRole(RoleDTO theRoleDTO) {
+        if(roleDTOS == null) {
+            roleDTOS = new ArrayList<>();
+        }
+        roleDTOS.add(theRoleDTO);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

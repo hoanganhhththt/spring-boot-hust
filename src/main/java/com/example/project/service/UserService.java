@@ -1,30 +1,33 @@
 package com.example.project.service;
 
-import com.example.project.entity.Transaction;
-import com.example.project.entity.User;
+import com.example.project.entity.UserDTO;
 import com.example.project.request.AddUserReq;
 import com.example.project.request.DetailReq;
 import com.example.project.request.ListUserReq;
 import com.example.project.request.UpdateUserReq;
 import com.example.project.response.ApiResponse;
 import com.example.project.response.DetailUser;
-import com.example.project.response.ListUserRes;
-import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface UserSerive {
+@Service
+public interface UserService {
 
-    List<User> findAllUser();
+    List<UserDTO> findAllUser();
 
-    void save(User theUser);
+    void save(UserDTO theUserDTO);
 
     boolean isPhoneNumberTaken(String phoneNumber);
 
     boolean isEmailTaken(String email);
 
-    User findUserById(int theId);
+    boolean isUsernameTaken(String username);
+
+    UserDTO findUserById(int theId);
+
+    Optional<UserDTO> findUserByUserName(String username);
 
     ApiResponse<DetailUser> detailUserById(DetailReq req);
 
@@ -32,7 +35,13 @@ public interface UserSerive {
 
     ApiResponse<String> updateUser(UpdateUserReq request);
 
+    Optional<UserDTO> findByUsername(String username);
+
     ApiResponse<String> changeStatusUser(DetailReq request);
 
     ApiResponse<?> findByFullNameContaining(ListUserReq request);
+
 }
+
+
+
